@@ -3,10 +3,30 @@ import { configureStore, createSlice } from "@reduxjs/toolkit";
 const initialState = {
   contacts: [
     {
+      id: 0,
+      name: "SQL Generator",
+      role: "Business Model to SQL",
+      picture: "./images/sql-server.png",
+      messages: [
+        {
+          role: "system",
+          content:
+            "Act as a database engineer trying to help product manager\n \
+            by providing a SQL statements based on the described business model,and features to add, etc, based on the idea they provide you with.\n \
+            To help the product manager, you can ask questions, give advice, or make suggestions.",
+        },
+        {
+          role: "assistant",
+          content:
+            "Tell me a bit about the proposed business model, I'll help you create the SQL statements!",
+        },
+      ],
+    },
+    {
       id: 1,
       name: "Startup Analyzer",
       role: "Idea to analysis",
-      picture: "./images/profile-pic-1.png",
+      picture: "./images/rocket.png",
       messages: [
         {
           role: "system",
@@ -26,7 +46,7 @@ const initialState = {
       id: 2,
       name: "Email Writer",
       role: "Draft tailored emails",
-      picture: "./images/profile-pic-2.png",
+      picture: "./images/mail.png",
       messages: [
         {
           role: "system",
@@ -45,7 +65,7 @@ const initialState = {
       id: 3,
       name: "Script Generator",
       role: "Perfect for short-form",
-      picture: "./images/profile-pic-3.png",
+      picture: "./images/movie-script.png",
       messages: [
         {
           role: "system",
