@@ -8,7 +8,7 @@ import System from "./System/System";
 import TableFeatures from "./TableFeatures/TableFeatures"
 const SqlGenerator = ({ selectedContact }) => {
   //Stepper
-  const [step, setStep] = useState(3);
+  const [step, setStep] = useState(1);
   const nextStep = () => {
     setStep(step + 1);
   };
