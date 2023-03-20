@@ -80,6 +80,25 @@ const initialState = {
         },
       ],
     },
+    {
+      id: 4,
+      name: "KDL Schema Generator",
+      role: "Perfect for short-form",
+      picture: "./images/sql-server.png",
+      messages: [
+        {
+          role: "system",
+          content:
+            "Act as a content creator, writing scripts for the user, based on their requirements.\n \
+            The user may provide the topic, tone, and talking points.",
+        },
+        {
+          role: "assistant",
+          content:
+            "Let's write a script for your next video! Tell me the topic, tone, and any specific talking points.",
+        },
+      ],
+    },
   ],
 };
 

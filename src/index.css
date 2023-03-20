@@ -264,3 +264,13 @@ span.message {
   align-items: center;
   color: var(--mediumGreen-color);
 }
+
+.generator {
+  width: 100%;
+  height: 100%;
+  padding: 16px;
+  overflow: auto;
+  gap: 16px;
+  box-sizing: border-box;
+  overflow: auto;
+}
