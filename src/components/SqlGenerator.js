@@ -5,10 +5,10 @@ import { ReactComponent as SendIcon } from "../images/icon-send.svg";
 import UserStories from "./UserStories/UserStories";
 import { SystemGenerator, TableGenerator } from "../helpers/helpers";
 import System from "./System/System";
-import TableFeatures from "./TableFeatures/TableFeatures"
+import TableFeatures from "./TableFeatures/TableFeatures";
 const SqlGenerator = ({ selectedContact }) => {
   //Stepper
-  const [step, setStep] = useState(1);
+  const [step, setStep] = useState(3);
   const nextStep = () => {
     setStep(step + 1);
   };
@@ -19,7 +19,7 @@ const SqlGenerator = ({ selectedContact }) => {
   //UserStories
   const [systemFeatures, setSystemFeatures] = useState([]);
   const handleSystemFeatures = async (features) => {
-    console.log(features)
+    console.log(features);
     await SystemGenerator(features)
       .then((data) => {
         return data.json();
@@ -34,28 +34,31 @@ const SqlGenerator = ({ selectedContact }) => {
         nextStep();
       })
       .catch((e) => {
-        alert("Error occured. Please Try Again")
+        alert("Error occured. Please Try Again");
       });
   };
 
   //system
   const [tableFeatures, setTableFeatures] = useState("");
   const handleTableFeatures = async (features) => {
-    console.log(features)
-    await TableGenerator(features).then((data) => {
-      return data.json();
-    }).then((data) => {
-      setTableFeatures(data.choices[0].message.content)
-      nextStep();
-    })
-    .catch((e) => {
-      alert("Error occured. Please Try Again")
-    });
-  }
+    console.log(features);
+    await TableGenerator(features)
+      .then((data) => {
+        return data.json();
+      })
+      .then((data) => {
+        setTableFeatures(data.choices[0].message.content);
+        console.log(data);
+        nextStep();
+      })
+      .catch((e) => {
+        alert("Error occured. Please Try Again");
+      });
+  };
 
   return (
-    <div className="flex-column chatbot">
-      <div className="flex-row contact-header">
+    <div className="flex-column chatbot overflow-auto">
+      <div className="flex-row contact-header sticky-top">
         <div className="contact-picture-wrap active">
           <img
             className="contact-picture active"
@@ -67,15 +70,18 @@ const SqlGenerator = ({ selectedContact }) => {
           <div className="contact-role">{selectedContact.role}</div>
         </div>
       </div>
-      <div className="d-flex align-items-center">
+      <div className="d-flex align-items-center ">
         {step === 1 ? (
           <UserStories handleSystemFeatures={handleSystemFeatures} />
         ) : null}
         {step === 2 ? (
-          <System features={systemFeatures} handleTableFeatures={handleTableFeatures}/>
+          <System
+            features={systemFeatures}
+            handleTableFeatures={handleTableFeatures}
+          />
         ) : null}
         {step === 3 ? (
-          <TableFeatures features={tableFeatures} />
+          <TableFeatures features={tableFeatures} setStep={setStep} />
         ) : null}
       </div>
     </div>

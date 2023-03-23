@@ -43,11 +43,12 @@ const Checkbox = ({ features, handleSystemFeatures }) => {
     .join(", ");
 
   return (
-    <>
+    <div>
       {checkboxValues.map((checkbox) => (
         <div key={checkbox.value} style={{ textAlign: "left" }}>
           <input
             type="checkbox"
+            className="form-check-input"
             id={checkbox.value}
             value={checkbox.value}
             checked={checkedValues.includes(checkbox.value)}
@@ -56,8 +57,15 @@ const Checkbox = ({ features, handleSystemFeatures }) => {
           <label htmlFor={checkbox.value}>{checkbox.label}</label>
         </div>
       ))}
-      <button onClick={() => handleSystemFeatures(combinedString)}>Submit</button>
-    </>
+      <div className="text-end">
+        <button
+          onClick={() => handleSystemFeatures(combinedString)}
+          className="btn btn-success mt-3"
+        >
+          Submit
+        </button>
+      </div>
+    </div>
   );
 };
 

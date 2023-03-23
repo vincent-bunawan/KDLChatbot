@@ -47,6 +47,7 @@ const Checkbox = ({ features, handleTableFeatures }) => {
       {checkboxValues.map((checkbox) => (
         <div key={checkbox.value} style={{ textAlign: "left" }}>
           <input
+            className="form-check-input"
             type="checkbox"
             id={checkbox.value}
             value={checkbox.value}
@@ -56,7 +57,16 @@ const Checkbox = ({ features, handleTableFeatures }) => {
           <label htmlFor={checkbox.value}>{checkbox.label}</label>
         </div>
       ))}
-      <button onClick={() => {handleTableFeatures(combinedString)}}>Submit</button>
+      <div className="text-end">
+        <button
+          className="btn btn-success"
+          onClick={() => {
+            handleTableFeatures(combinedString);
+          }}
+        >
+          Submit
+        </button>
+      </div>
     </div>
   );
 };

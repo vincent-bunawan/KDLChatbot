@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { UserStoriesGenerator } from "../../helpers/helpers";
 import { ReactComponent as SendIcon } from "../../images/icon-send.svg";
 import Checkbox from "./Checkbox";
+import Spinner from "react-bootstrap/Spinner";
 const Generator = ({ handleSystemFeatures }) => {
   const dispatch = useDispatch();
   const [input, setInput] = useState("");
@@ -41,8 +42,9 @@ const Generator = ({ handleSystemFeatures }) => {
     <div className="w-100">
       <div className="flex-column input-container">
         <textarea
-          className="message-input"
+          className="form-control "
           type="text"
+          id="floatingTextarea"
           placeholder="What do you want to make..."
           value={input}
           onChange={handleChange}
@@ -56,8 +58,13 @@ const Generator = ({ handleSystemFeatures }) => {
           <SendIcon className="send-icon" />
         </button>
       </div>
+      <div>
+        <Spinner animation="border" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </Spinner>
+      </div>
       {features.length != 0 ? (
-        <div className="p-4">
+        <div className="container p-4">
           <p>Please select the features</p>
           <Checkbox
             features={features}

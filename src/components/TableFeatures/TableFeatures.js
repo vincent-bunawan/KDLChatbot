@@ -1,15 +1,26 @@
-const tableFeatures = ({features}) => {
+const tableFeatures = ({ features, setStep }) => {
   return (
     <div className="w-100">
       <div className="flex-column input-container h-75">
         <textarea
-          className="message-input"
+          className="form-control"
           type="text"
-          placeholder="What do you want to make..."
-        //   value={features}
-        //   onChange={handleChange}
-        //   disabled={loading}
+          placeholder="Result"
+          value={features}
+          style={{ height: "400px", resize: "none" }}
+          //   onChange={handleChange}
+          //   disabled={loading}
         />
+        <div className="text-end mt-2">
+          <button
+            className="btn btn-primary"
+            onClick={() => {
+              setStep(1);
+            }}
+          >
+            Back to Chat
+          </button>
+        </div>
       </div>
     </div>
   );
