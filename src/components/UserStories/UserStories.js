@@ -3,11 +3,9 @@ import { useSelector, useDispatch } from "react-redux";
 import { UserStoriesGenerator } from "../../helpers/helpers";
 import { ReactComponent as SendIcon } from "../../images/icon-send.svg";
 import Checkbox from "./Checkbox";
-import Spinner from "react-bootstrap/Spinner";
-const Generator = ({ handleSystemFeatures }) => {
+const Generator = ({ handleSystemFeatures, loading, setLoading }) => {
   const dispatch = useDispatch();
   const [input, setInput] = useState("");
-  const [loading, setLoading] = useState(false);
   const [features, setFeatures] = useState([]);
   const handleChange = (event) => {
     setInput(event.target.value);
@@ -57,11 +55,6 @@ const Generator = ({ handleSystemFeatures }) => {
         >
           <SendIcon className="send-icon" />
         </button>
-      </div>
-      <div>
-        <Spinner animation="border" role="status">
-          <span className="visually-hidden">Loading...</span>
-        </Spinner>
       </div>
       {features.length != 0 ? (
         <div className="container p-4">

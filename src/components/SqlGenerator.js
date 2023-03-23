@@ -6,9 +6,12 @@ import UserStories from "./UserStories/UserStories";
 import { SystemGenerator, TableGenerator } from "../helpers/helpers";
 import System from "./System/System";
 import TableFeatures from "./TableFeatures/TableFeatures";
+import { Spinner } from "react-bootstrap";
 const SqlGenerator = ({ selectedContact }) => {
+  //loading
+  const [loading, setLoading] = useState(false);
   //Stepper
-  const [step, setStep] = useState(3);
+  const [step, setStep] = useState(1);
   const nextStep = () => {
     setStep(step + 1);
   };
@@ -19,7 +22,7 @@ const SqlGenerator = ({ selectedContact }) => {
   //UserStories
   const [systemFeatures, setSystemFeatures] = useState([]);
   const handleSystemFeatures = async (features) => {
-    console.log(features);
+    setLoading(true);
     await SystemGenerator(features)
       .then((data) => {
         return data.json();
@@ -31,6 +34,7 @@ const SqlGenerator = ({ selectedContact }) => {
           .filter((item) => item !== "")
           .map((item) => item.trim());
         setSystemFeatures(arr);
+        setLoading(false);
         nextStep();
       })
       .catch((e) => {
@@ -41,7 +45,7 @@ const SqlGenerator = ({ selectedContact }) => {
   //system
   const [tableFeatures, setTableFeatures] = useState("");
   const handleTableFeatures = async (features) => {
-    console.log(features);
+    setLoading(true);
     await TableGenerator(features)
       .then((data) => {
         return data.json();
@@ -49,6 +53,7 @@ const SqlGenerator = ({ selectedContact }) => {
       .then((data) => {
         setTableFeatures(data.choices[0].message.content);
         console.log(data);
+        setLoading(false);
         nextStep();
       })
       .catch((e) => {
@@ -72,7 +77,11 @@ const SqlGenerator = ({ selectedContact }) => {
       </div>
       <div className="d-flex align-items-center ">
         {step === 1 ? (
-          <UserStories handleSystemFeatures={handleSystemFeatures} />
+          <UserStories
+            handleSystemFeatures={handleSystemFeatures}
+            loading={loading}
+            setLoading={setLoading}
+          />
         ) : null}
         {step === 2 ? (
           <System
@@ -84,6 +93,13 @@ const SqlGenerator = ({ selectedContact }) => {
           <TableFeatures features={tableFeatures} setStep={setStep} />
         ) : null}
       </div>
+      {loading ? (
+        <div className="d-flex justify-content-end">
+          <Spinner animation="border" role="status">
+            <span className="visually-hidden">Loading...</span>
+          </Spinner>
+        </div>
+      ) : null}
     </div>
   );
 };
